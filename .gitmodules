@@ -1,0 +1,3 @@
+[submodule "ice"]
+	path = ice
+	url = https://github.com/iDvel/rime-ice
