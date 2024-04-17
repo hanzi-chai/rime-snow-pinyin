@@ -1,0 +1,13 @@
+# Rime dictionary
+# encoding: utf-8
+#
+# Snow Pinyin - 冰雪拼音
+#
+
+---
+name: snow_pinyin.ext
+version: "0.1"
+sort: by_weight
+use_preset_vocabulary: false
+...
+
