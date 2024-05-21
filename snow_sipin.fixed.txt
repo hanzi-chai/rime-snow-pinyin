@@ -16,7 +16,7 @@ bii	逼
 biu	笔
 bo	博
 boi	波
-boo	啵
+boo	B b
 bu	补
 bua	部
 buo	变
@@ -25,7 +25,7 @@ c	从
 ca	才
 cae	藏
 cai	菜
-cao	三 3
+cao	惨
 cau	操
 ce	曾
 cea	测
@@ -36,6 +36,7 @@ cie	词
 ciu	此
 co	错
 coi	搓
+coo	C c
 cou	凑
 cu	粗
 cui	催
@@ -58,6 +59,7 @@ dio	段
 diu	底
 do	多
 doi	哆
+doo	D d
 dou	丢
 du	对
 dua	度
@@ -83,7 +85,7 @@ fio	因
 fiu	已
 fo	又
 foe	用
-foo	哟
+foo	F f
 fou	由
 fu	要
 fua	负
@@ -110,10 +112,14 @@ gio	管
 go	过
 goe	共
 goi	锅
+goo	G g
 gou	狗
 gu	故
+gua	顾
+gue	五 5
 gui	贵
 guo	滚
+guu	古
 h	和
 ha	好
 hai	还
@@ -122,6 +128,7 @@ hau	号
 he	很
 hee	合
 hei	黑
+heu	三 3
 heo	恨
 hi	话
 hia	画
@@ -131,6 +138,7 @@ hio	换
 ho	后
 hoa	或
 hoe	活
+hoo	H h
 hou	火
 hu	会
 hue	湖
@@ -145,7 +153,7 @@ je	接
 jea	借
 jee	节
 jei	皆
-jeo	价
+jeo	J j
 jeu	姐
 ji	即
 jia	记
@@ -185,8 +193,9 @@ koo	元
 kou	口
 ku	哭
 kua	酷
+kue	K k
 kuo	困
-kuu	五 5
+kuu	苦
 l	来
 la	啦
 laa	率
@@ -207,7 +216,7 @@ liu	李
 lo	留
 loa	落
 loe	龙
-loo	咯
+loo	L l
 lou	六 6
 lu	连
 lua	路
@@ -234,6 +243,7 @@ mo	某
 moa	末
 moe	魔
 moi	摸
+moo	M m
 mou	抹
 mu	秒
 mua	木
@@ -255,6 +265,7 @@ nio	暖
 no	弄
 noa	虐
 noe	浓
+noo	N n
 nou	牛
 nu	年
 nua	怒
@@ -276,6 +287,7 @@ pia	屁
 pie	瓶
 pii	批
 po	破
+poo	P p
 pu	骗
 pui	噗
 puo	片
@@ -289,6 +301,7 @@ qau	娶
 qe	且
 qea	切
 qei	切
+qeo	Q q
 qi	其
 qia	气
 qie	请
@@ -323,16 +336,24 @@ rii	日
 rio	软
 ro	哦
 roa	若
+roo	R r
 rou	肉
 ru	如
 rua	入
 ruu	乳
 s	我
 sa	散
+saa	飒
+sae	丧
 sai	塞
+sao	伞
 sau	扫
 se	色
-sea	涩
+sea	A a
+see	E e
+sei	I i
+seo	O o
+seu	U u
 si	玩
 sia	四 4
 sie	往
@@ -342,6 +363,7 @@ so	所
 soa	握
 soe	送
 soi	窝
+soo	S s
 sou	搜
 su	为
 sua	勿
@@ -367,6 +389,7 @@ tiu	体
 to	同
 toe	通
 toi	拖
+too	T t
 tou	头
 tu	天
 tua	吐
@@ -390,6 +413,7 @@ vie	十 10
 vii	刷
 viu	使
 vo	说
+voo	V v
 vou	手
 vu	数
 vua	树
@@ -416,6 +440,7 @@ wiu	纸
 wo	中
 woe	种
 woi	捉
+woo	W w
 wou	周
 wu	住
 wua	祝
@@ -429,6 +454,7 @@ xe	写
 xea	谢
 xee	鞋
 xei	些
+xeo	X x
 xeu	血
 xi	行
 xia	系
@@ -465,6 +491,7 @@ yio	传
 yo	重
 yoe	冲
 yoi	戳
+yoo	Y y
 you	抽
 yu	处
 yue	除
@@ -488,6 +515,7 @@ ziu	子
 zo	做
 zoa	作
 zoe	总
+zoo	Z z
 zou	走
 zu	最
 zue	足
