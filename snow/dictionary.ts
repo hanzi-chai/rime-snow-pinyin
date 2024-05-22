@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from "fs";
 
 const base = readFileSync("snow_pinyin.base.dict.yaml", "utf-8");
+const ext = readFileSync("snow_pinyin.ext.dict.yaml", "utf-8");
 const frequency = readFileSync("../libchai/assets/frequency.txt", "utf-8");
 
 const freqMap: Map<string, number> = new Map();
@@ -12,7 +13,7 @@ for (const line of frequency.split("\n")) {
 
 const dictionary: [string, string][] = [];
 
-for (const line of base.split("\n")) {
+for (const line of (base + ext).split("\n")) {
   if (line.startsWith("#")) continue;
   if (!line.includes('\t')) continue;
 

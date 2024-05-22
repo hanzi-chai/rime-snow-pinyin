@@ -29,6 +29,8 @@ switches:
 engine:
   processors:
     - ascii_composer
+    - lua_processor@*snow.shape_processor
+    - lua_processor@*snow.select_character
     - recognizer
     - key_binder
     - lua_processor@*snow.editor
@@ -55,6 +57,7 @@ engine:
     - lua_filter@*snow.postpone
     - simplifier
     - uniquifier
+    - lua_filter@*snow.shape_filter
 
 speller:
   alphabet: bpmfdtnlgkhjqxzcsrwyvaeiou`
@@ -121,14 +124,14 @@ speller:
     # 韵尾
     - xform/ng(?=\d)/e/
     - xform/n(?=\d)/o/
+    # 补码
+    - derive/^([a-z]{2}\d)$/$1o/
     # 简拼及无声调的全拼
     - abbrev/^([a-z]).+$/$1/
-    - derive/\d//
+    - derive/\d$//
     # 字词模式下的简码
     # 如果使用整句模式，可以将这些规则注释掉以提升准确度
     - derive/^([a-z]{2}).+$/$1/
-    - derive/^([a-z]{3}).+$/$1/
-    - derive/^([a-z]{2}\d)$/$1o/
     # 声调
     - xlit/12345/ieuao/
 
@@ -166,6 +169,8 @@ punctuator:
     "i": ；
 
 key_binder:
+  select_first_character: bracketleft
+  select_last_character: bracketright
   bindings:
     # Emacs 编辑键
     - { accept: "Control+p", send: Up, when: composing }
@@ -210,7 +215,7 @@ simplifier:
 recognizer:
   patterns:
     punct: '^\\([0-9]0?|[A-Za-z]+)$'
-    stroke: "e([a-z]*'?)$"
+    stroke: "^e([a-z]*'?)$"
 
 menu:
   alternative_select_keys: "_23890"
