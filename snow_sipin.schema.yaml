@@ -11,6 +11,8 @@ schema:
     带调拼音词顶功输入方案
   dependencies:
     - stroke
+    - snow_pinyin
+    - snow_stroke
 
 switches:
   - name: ascii_mode
@@ -45,19 +47,66 @@ engine:
     - matcher
     - abc_segmentor
     - affix_segmentor@stroke
+    - affix_segmentor@pinyin
     - punct_segmentor
     - fallback_segmentor
   translators:
     - punct_translator
-    - table_translator@stroke
     - script_translator
+    - table_translator@stroke
+    - script_translator@pinyin
+    - lua_translator@*snow.datetime
+    - lua_translator@*snow.number
+    - lua_translator@*snow.calculator
+    - history_translator
   filters:
-    - reverse_lookup_filter@reverse_lookup
+    - reverse_lookup_filter@lookup_pinyin
+    - reverse_lookup_filter@lookup_sipin
     - lua_filter@*snow.fix
     - lua_filter@*snow.postpone
     - simplifier
     - uniquifier
     - lua_filter@*snow.shape_filter
+
+sipin_algebra:
+  # 无理音节
+  - derive/san1/he3/ # 三
+  - derive/wu3/gu2/ # 五
+  - derive/ri4/ri1/ # 日
+  # 还原
+  - xform/((^| )h?)([mn]g?\d)/$1e$2/
+  - xform/(^| )wu?/$1u/
+  - xform/(^| )yu/$1ü/
+  - xform/(^| )yi?/$1i/
+  - xform/((?<=[jqx])u|(?<=[nl])v)/ü/
+  - xform/iu/iou/
+  - xform/u([in])/ue$1/
+  - xform/ao/au/
+  # 声码
+  - xform/zh/w/
+  - xform/ch/y/
+  - xform/sh/v/
+  - xform/(^| )(?=[aoe])/$1r/
+  - xform/(^| )(?=i)/$1f/
+  - xform/(^| )(?=u)/$1s/
+  - xform/(^| )(?=ü)/$1k/
+  # 韵头
+  - xform/ia/u/
+  - xform/ua/i/
+  - xform/üa/o/
+  - xform/ie/e/
+  - xform/ue/u/
+  - xform/üe/o/
+  - xform/io/o/
+  - xform/uo/o/
+  - xform/er/i/
+  - xform/ü/a/
+  # 韵尾
+  - xform/ng(?=\d)/e/
+  - xform/n(?=\d)/o/
+  - xform/m(?=\d)/a/
+  # 声调
+  - xlit/12345/ieuao/
 
 speller:
   alphabet: bpmfdtnlgkhjqxzcsrwyvaeiou`
@@ -84,64 +133,27 @@ speller:
     - match: ".*[a-z0-9;']"
       accept: "[^a-z0-9;' ]"
   algebra:
-    # 无理音节
-    - derive/san1/he3/ # 三
-    - derive/wu3/gu2/ # 五
-    - derive/ri4/ri1/ # 日
-    # 还原
-    - xform/^(h?)([mn]g?\d)/$1e$2/
-    - xform/^wu?/u/
-    - xform/^yu/ü/
-    - xform/^yi?/i/
-    - xform/((?<=[jqx])u|(?<=[nl])v)/ü/
-    - xform/iu/iou/
-    - xform/u(in)/ue$1/
-    - xform/ao/au/
-    # 字母
-    - xform/~{1,2}a/woa/
-    - xform/~{1,2}e/voe/
-    - xform/~{1,2}i/sei/
-    - xform/~{1,2}o/teo/
-    - xform/~{1,2}u/seu/
-    - xform/~{1,2}([bp])/$1ea/
-    - xform/~{1,2}f/foa/
-    - xform/~{1,2}k/kuee/
-    - xform/~{1,2}h/hiu/
-    - xform/~{1,2}([jqx])/$1eo/
-    - xform/~{1,2}([mgdtnlzcsrywv])/$1oo/
-    # 声码
-    - xform/zh/w/
-    - xform/ch/y/
-    - xform/sh/v/
-    - xform/^(?=[aoe])/r/
-    - xform/^(?=i)/f/
-    - xform/^(?=u)/s/
-    - xform/^(?=ü)/k/
-    # 韵头
-    - xform/ia/u/
-    - xform/ua/i/
-    - xform/üa/o/
-    - xform/ie/e/
-    - xform/ue/u/
-    - xform/üe/o/
-    - xform/io/o/
-    - xform/uo/o/
-    - xform/er/i/
-    - xform/ü/a/
-    # 韵尾
-    - xform/ng(?=\d)/e/
-    - xform/n(?=\d)/o/
-    - xform/m(?=\d)/a/
-    # 补码
-    - derive/^([a-z]{2}\d)$/$1o/
-    # 简拼及无声调的全拼
-    - abbrev/^([a-z]).+$/$1/
-    - derive/\d$//
-    # 字词模式下的简码
-    # 如果使用整句模式，可以将这些规则注释掉以提升准确度
-    - derive/^([a-z]{2}).+$/$1/
-    # 声调
-    - xlit/12345/ieuao/
+    __include: /sipin_algebra
+    __append:
+      # 补码
+      - derive/^([a-z]{3})$/$1o/
+      # 简拼及无声调的全拼
+      - abbrev/^([a-z]).+$/$1/
+      - derive/[aeiou]$//
+      # 字词模式下的简码；整句模式下应注释掉以提升准确度
+      - derive/^([a-z]{2}).+$/$1/
+      # 字母
+      - xform/~{1,2}a/woa/
+      - xform/~{1,2}e/voe/
+      - xform/~{1,2}i/sei/
+      - xform/~{1,2}o/teo/
+      - xform/~{1,2}u/seu/
+      - xform/~{1,2}([bp])/$1ea/
+      - xform/~{1,2}f/foa/
+      - xform/~{1,2}k/kuee/
+      - xform/~{1,2}h/hiu/
+      - xform/~{1,2}([jqx])/$1eo/
+      - xform/~{1,2}([mgdtnlzcsrywv])/$1oo/
 
 translator:
   dictionary: snow_pinyin
@@ -153,21 +165,47 @@ translator:
 stroke:
   tag: stroke
   dictionary: stroke
+  prism: snow_stroke
   enable_user_dict: false
   enable_sentence: false
   enable_completion: true
-  prefix: "e"
+  prefix: "u"
   suffix: "'"
   tips: 〔笔画〕
   preedit_format:
-    - xlit/hspnz/一丨丿丶乙/
+    - xlit/eiuoa/一丨丿丶乙/
 
-reverse_lookup:
+pinyin:
+  tag: pinyin
+  dictionary: snow_pinyin
+  packs:
+    - snow_pinyin.base
+    - snow_pinyin.ext
+  enable_user_dict: false
+  enable_sentence: false
+  prefix: "a"
+  suffix: "'"
+  tips: 〔拼音〕
+
+history:
+  tag: history
+  input: "e"
+  size: 5
+  initial_quality: -1
+
+lookup_pinyin:
   tags: [stroke]
   overwrite_comment: true
   dictionary: snow_pinyin
   comment_format:
     - xform/([nl])v/$1ü/
+
+lookup_sipin:
+  tags: [pinyin]
+  overwrite_comment: true
+  dictionary: snow_pinyin
+  comment_format:
+    __include: /sipin_algebra
 
 punctuator:
   import_preset: snow_pinyin.symbols
@@ -222,8 +260,11 @@ simplifier:
 
 recognizer:
   patterns:
-    punct: '^\\([0-9]0?|[A-Za-z]+)$'
-    stroke: "^e([a-z]*'?)$"
+    punct: '^e([0-9]0?|[A-Za-z]+)$'
+    pinyin: "^a[a-z]*'?$"
+    stroke: "^u[a-z]*'?$"
+    lua: "^o.*$"
+    history: "^e$"
 
 menu:
   alternative_select_keys: "_23890"

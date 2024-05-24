@@ -8,6 +8,14 @@ local number_to_letter = {
   ["5"] = "a",
 }
 
+local letter_to_stroke = {
+  ["e"] = "一",
+  ["i"] = "丨",
+  ["u"] = "丿",
+  ["o"] = "丶",
+  ["a"] = "乙",
+}
+
 ---@class AssistEnv: Env
 ---@field strokes table<string, string>
 ---@field radicals table<string, string>
@@ -62,7 +70,8 @@ function filter.func(translation, env)
     else
       partial_code = shape_input
       code = env.strokes[candidate.text] or ""
-      prompt = #shape_input > 0 and (" 笔画 [" .. shape_input .. "]") or ""
+      local maybe_prompt = " 笔画 [" .. partial_code:gsub("[aeiou]", letter_to_stroke) .. "]"
+      prompt = #shape_input > 0 and maybe_prompt or ""
     end
     if not code or code:sub(1, #partial_code) == partial_code then
       candidate.comment = code
