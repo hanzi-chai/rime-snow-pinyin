@@ -64,12 +64,6 @@ speller:
   initials: bpmfdtnlgkhjqxzcsrwyv
   delimiter: " "
   popping:
-    # 顶标点
-    - match: ".*[^a-z0-9]"
-      accept: "[bpmfdtnlgkhjqxzcsrywv]"
-    # 标点大写顶
-    - match: ".*[a-z0-9;']"
-      accept: "[^a-z0-9;' ]"
     # 单字、二字词、三字词
     - when: popping
       match: "([bpmfdtnlgkhjqxzcsrywv][aeuio]{0,4}){1,3}[aeiou]+"
@@ -83,6 +77,12 @@ speller:
       match: "([bpmfdtnlgkhjqxzcsrywv][aeuio]{0,4}){4,}"
       accept: "[BPMFDTNLGKHJQXZCSRYWV]"
       strategy: append
+    # 顶标点
+    - match: ".*[^a-z0-9]"
+      accept: "[bpmfdtnlgkhjqxzcsrywv]"
+    # 标点大写顶
+    - match: ".*[a-z0-9;']"
+      accept: "[^a-z0-9;' ]"
   algebra:
     # 无理音节
     - derive/san1/he3/ # 三
@@ -98,10 +98,17 @@ speller:
     - xform/u(in)/ue$1/
     - xform/ao/au/
     # 字母
-    - xform/~{1,2}([aeiou])/se$1/
-    - xform/~{1,2}k/kue/
+    - xform/~{1,2}a/woa/
+    - xform/~{1,2}e/voe/
+    - xform/~{1,2}i/sei/
+    - xform/~{1,2}o/teo/
+    - xform/~{1,2}u/seu/
+    - xform/~{1,2}([bp])/$1ea/
+    - xform/~{1,2}f/foa/
+    - xform/~{1,2}k/kuee/
+    - xform/~{1,2}h/hiu/
     - xform/~{1,2}([jqx])/$1eo/
-    - xform/~{1,2}([bpmfdtnlghzcsrywv])/$1oo/
+    - xform/~{1,2}([mgdtnlzcsrywv])/$1oo/
     # 声码
     - xform/zh/w/
     - xform/ch/y/
@@ -124,6 +131,7 @@ speller:
     # 韵尾
     - xform/ng(?=\d)/e/
     - xform/n(?=\d)/o/
+    - xform/m(?=\d)/a/
     # 补码
     - derive/^([a-z]{2}\d)$/$1o/
     # 简拼及无声调的全拼

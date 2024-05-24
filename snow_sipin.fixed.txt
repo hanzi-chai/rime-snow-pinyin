@@ -6,23 +6,32 @@ bai	八 8
 bao	办
 bau	把
 be	被
+bea	B b
 bee	别
 bei	北
 beo	本
+beu	瘪
 bi	比
 bia	必
 bie	并
 bii	逼
+bio	宾
 biu	笔
 bo	博
+boa	擘
+boe	脖
 boi	波
-boo	B b
+boo	啵
+bou	跛
 bu	补
 bua	部
+bue	醭
+bui	晡
 buo	变
 buu	表
 c	从
 ca	才
+caa	？
 cae	藏
 cai	菜
 cao	惨
@@ -30,17 +39,27 @@ cau	操
 ce	曾
 cea	测
 cee	蹭
+cei	？
+ceo	岑
+ceu	？
 ci	次
 cia	刺
 cie	词
+cii	呲
+cio	窜
 ciu	此
 co	错
+coa	挫
+coe	葱
 coi	搓
 coo	C c
 cou	凑
 cu	粗
+cua	醋
+cue	殂
 cui	催
 cuo	寸
+cuu	？
 d	都
 da	到
 daa	大
@@ -49,8 +68,11 @@ dai	带
 dao	但
 dau	打
 de	得
+dea	？
 dee	等
 dei	爹
+deo	地
+deu	？
 di	地
 dia	第
 die	顶
@@ -58,6 +80,8 @@ dii	低
 dio	段
 diu	底
 do	多
+doa	剁
+doe	懂
 doi	哆
 doo	D d
 dou	丢
@@ -69,7 +93,9 @@ duo	点
 duu	掉
 f	有
 fa	发
+faa	珐
 fae	放
+fai	发
 fao	饭
 fau	法
 fe	也
@@ -77,6 +103,7 @@ fea	夜
 fee	疯
 fei	飞
 feo	分
+feu	野
 fi	以
 fia	亿
 fie	应
@@ -84,8 +111,10 @@ fii	一 1
 fio	因
 fiu	已
 fo	又
+foa	F f
 foe	用
-foo	F f
+foi	唷
+foo	哟
 fou	由
 fu	要
 fua	负
@@ -95,6 +124,7 @@ fuo	呀
 fuu	咬
 g	个
 ga	搞
+gaa	尬
 gae	刚
 gai	该
 gao	干
@@ -104,12 +134,15 @@ gea	各
 gee	更
 gei	哥
 geo	跟
+geu	葛
 gi	光
 gia	挂
 gie	逛
 gii	怪
 gio	管
+giu	寡
 go	过
+goa	过
 goe	共
 goi	锅
 goo	G g
@@ -122,10 +155,13 @@ guo	滚
 guu	古
 h	和
 ha	好
+haa	哈
+hae	行
 hai	还
 hao	喊
 hau	号
 he	很
+hea	鹤
 hee	合
 hei	黑
 heu	三 3
@@ -135,20 +171,26 @@ hia	画
 hie	黄
 hii	坏
 hio	换
+hiu	H h
 ho	后
 hoa	或
 hoe	活
-hoo	H h
+hoi	豁
+hoo	和
 hou	火
 hu	会
+hua	互
 hue	湖
 hui	回
 huo	混
 huu	虎
 j	就
-ja	举
+ja	据
 jaa	句
+jae	局
+jai	居
 jao	均
+jau	举
 je	接
 jea	借
 jee	节
@@ -162,12 +204,15 @@ jii	鸡
 jio	金
 jiu	几
 jo	久
+joa	倔
 joe	绝
+joi	撅
 joo	卷
 jou	九 9
 ju	加
 jua	嫁
 jue	将
+jui	家
 juo	见
 juu	叫
 k	看
@@ -180,11 +225,15 @@ kau	卡
 ke	可
 kea	课
 kee	坑
+kei	磕
 keo	肯
+keu	渴
 ki	快
+kia	跨
 kie	狂
 kii	块
 kio	款
+kiu	垮
 ko	越
 koa	月
 koe	空
@@ -194,6 +243,7 @@ kou	口
 ku	哭
 kua	酷
 kue	K k
+kui	亏
 kuo	困
 kuu	苦
 l	来
@@ -207,15 +257,18 @@ le	类
 lea	乐
 lee	冷
 lei	累
+leo	了
 leu	咧
 li	里
 lia	力
 lie	零 0
+lii	哩
 lio	乱
 liu	李
 lo	留
 loa	落
 loe	龙
+loi	啰
 loo	L l
 lou	六 6
 lu	连
@@ -236,9 +289,13 @@ mea	灭
 mee	梦
 mei	妹
 meo	门
+meu	？
 mi	米
+mia	幂
 mie	名
 mii	咪
+mio	民
+miu	米
 mo	某
 moa	末
 moe	魔
@@ -247,6 +304,8 @@ moo	M m
 mou	抹
 mu	秒
 mua	木
+mue	模
+mui	？
 muo	面
 muu	喵
 n	你
@@ -257,19 +316,27 @@ nai	乃
 nao	南
 nau	哪
 ne	能
+nea	孽
+nee	哪
 nei	内
 neo	呢
+neu	？
 ni	您
 nia	腻
+nie	泥
+nii	妮
 nio	暖
+niu	拟
 no	弄
 noa	虐
 noe	浓
+noi	？
 noo	N n
 nou	牛
 nu	年
 nua	怒
 nue	娘
+nui	？
 nuo	念
 nuu	鸟
 p	跑
@@ -280,28 +347,42 @@ pai	排
 pao	盘
 pau	泡
 pe	喷
+pea	P p
 pee	碰
 pei	配
+peo	喷
+peu	撇
 pi	拼
 pia	屁
 pie	瓶
 pii	批
+pio	品
+piu	匹
 po	破
-poo	P p
+poa	迫
+poe	婆
+poi	颇
+poo	桲
+pou	剖
 pu	骗
+pua	铺
+pue	葡
 pui	噗
 puo	片
 puu	票
 q	去
 qa	取
 qaa	趣
+qae	渠
 qai	区
 qao	群
 qau	娶
 qe	且
 qea	切
+qee	茄
 qei	切
 qeo	Q q
+qeu	且
 qi	其
 qia	气
 qie	请
@@ -309,6 +390,7 @@ qii	七 7
 qio	亲
 qiu	起
 qo	却
+qoa	雀
 qoe	穷
 qoi	缺
 qoo	全
@@ -321,6 +403,7 @@ quo	钱
 quu	瞧
 r	人
 ra	啊
+raa	啊
 rae	让
 rai	爱
 rao	按
@@ -328,35 +411,44 @@ rau	凹
 re	嗯
 rea	热
 ree	仍
+rei	欸
+reo	任
 reu	惹
 ri	而
 ria	二 2
 rie	儿
 rii	日
 rio	软
+riu	尔
 ro	哦
 roa	若
+roe	容
+roi	噢
 roo	R r
 rou	肉
 ru	如
 rua	入
+rue	儒
+rui	瑞
+ruo	润
 ruu	乳
 s	我
 sa	散
 saa	飒
 sae	丧
 sai	塞
-sao	伞
+sao	三 3
 sau	扫
 se	色
-sea	A a
-see	E e
+sea	涩
+see	僧
 sei	I i
-seo	O o
+seo	森
 seu	U u
 si	玩
 sia	四 4
 sie	往
+sii	外
 sio	万
 siu	死
 so	所
@@ -370,15 +462,19 @@ sua	勿
 sue	无
 sui	未
 suo	问
+suu	五 5
 t	他
 ta	她
+taa	踏
 tae	躺
 tai	它
 tao	谈
 tau	套
 te	特
+tea	帖
 tee	疼
 tei	贴
+teo	O o
 teu	帖
 ti	听
 tia	替
@@ -387,6 +483,7 @@ tii	踢
 tio	团
 tiu	体
 to	同
+toa	拓
 toe	通
 toi	拖
 too	T t
@@ -399,26 +496,35 @@ tuo	填
 tuu	土
 v	是
 va	上
+vaa	煞
 vae	啥
 vai	杀
 vao	删
 vau	少
-ve	谁
+ve	生
 vea	设
-vee	生
+vee	声
+vei	谁
 veo	深
+veu	舍
 vi	时
 via	事
 vie	十 10
 vii	刷
+vio	涮
 viu	使
 vo	说
+voa	硕
+voe	E e
+voi	说
 voo	V v
 vou	手
 vu	数
 vua	树
+vue	熟
 vui	水
 vuu	属
+vuo	顺
 w	这
 wa	找
 waa	炸
@@ -427,6 +533,7 @@ wai	渣
 wao	站
 wau	照
 we	着
+wea	浙
 wee	整
 wei	遮
 weo	真
@@ -438,18 +545,24 @@ wii	之
 wio	转
 wiu	纸
 wo	中
+woa	A a
 woe	种
 woi	捉
 woo	W w
 wou	周
 wu	住
 wua	祝
+wue	竹
 wui	追
 wuo	准
 wuu	主
 x	想
 xa	需
+xaa	续
+xae	徐
 xai	虚
+xao	寻
+xau	许
 xe	写
 xea	谢
 xee	鞋
@@ -463,7 +576,9 @@ xii	西
 xio	新
 xiu	洗
 xo	学
+xoa	血
 xoe	胸
+xoi	靴
 xoo	选
 xou	秀
 xu	下
@@ -480,44 +595,397 @@ yai	拆
 yao	产
 yau	超
 ye	成
+yea	撤
 yee	乘
 yei	车
 yeo	趁
 yeu	扯
 yi	吃
+yia	赤
 yie	床
 yii	踹
 yio	传
+yiu	尺
 yo	重
+yoa	啜
 yoe	冲
 yoi	戳
 yoo	Y y
 you	抽
 yu	处
+yua	触
 yue	除
 yui	吹
 yuo	纯
 yuu	楚
 z	在
 za	再
+zaa	？
 zae	杂
 zai	仔
 zao	赞
 zau	咋
 ze	则
+zea	仄
 zee	增
 zei	贼
 zeo	怎
+zeu	？
 zi	字
 zia	自
+zie	？
+zii	兹
 zio	钻
 ziu	子
 zo	做
 zoa	作
 zoe	总
+zoi	嘬
 zoo	Z z
 zou	走
 zu	最
+zua	？
 zue	足
 zui	嘴
+zuo	尊
 zuu	组
+
+fxe	一些
+fba	一般
+ffu	一样
+fxu	一下
+fhu	一会
+fwo	一种
+fci	一次
+fdi	一定
+fw	一直
+fwi	一只
+ftu	一天
+fqi	一起
+fdu	一点
+fqe	一切
+fnu	一年
+fju	一件
+fya	一场
+fsu	一位
+vm	上面
+xm	下面
+qm	前面
+hm	后面
+lm	里面
+	
+	
+yl	出来
+yq	出去
+jl	进来
+jq	进去
+bf	不要
+bn	不能
+bh	不会
+	
+kf	可以
+fg	应该
+kn	可能
+bx	必须
+mf	没有
+hf	还有
+bv	不是
+jv	就是
+hv	还是
+wv	只是
+rv	而是
+gj	感觉
+rs	认为
+sk	思考
+jd	觉得
+xf	需要
+wd	知道
+fx	发现
+kvi	开始
+st	问题
+vq	事情
+wn	只能
+whu	只会
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+bj	比较
+tb	特别
+fy	非常
+wj	直接
+jy	经常
+rri	偶尔
+zv	总是
+sfo	所有
+zji	最近
+zh	最后
+gjui	更加
+fj	已经
+wfo	只有
+jt	今天
+mt	明天
+zt	昨天
+qtu	前天
+htu	后天
+mtu	每天
+yt	春天
+xt	夏天
+qtuo	秋天
+dt	冬天
+vsuua	上午
+wsu	中午
+xsuu	下午
+xz	现在
+gq	过去
+sl	未来
+wq	之前
+wh	之后
+fq	以前
+fh	以后
+vj	时间
+vh	时候
+	
+zj	自己
+sm	我们
+nm	你们
+nmeo	您们
+tm	他们
+tme	她们
+tmeo	它们
+zmeo	咱们
+vme	什么
+wg	这个
+ng	那个
+nge	哪个
+wl	这里
+nl	那里
+nli	哪里
+ww	这种
+nw	那种
+nwo	哪种
+wx	这些
+nx	那些
+nxe	哪些
+wf	这样
+nf	那样
+zf	怎样
+wm	这么
+nme	那么
+zm	怎么
+dk	对于
+fs	因为
+sf	所以
+sra	虽然
+dv	但是
+bg	不过
+rq	而且
+rh	然后
+bq	并且
+rriea	然而
+dr	当然
+fciu	因此
+rg	如果
+kv	可是
+kl	原来
+qv	其实
+hw	或者
+jr	居然
+jra	竟然
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+vje	世界
+vho	生活
+dx	东西
+kdi	肯定
+rhe	如何
+kr	可爱
+fge	一个
+rge	二个
+hge	三个
+sge	四个
+gge	五个
+lge	六个
+qge	七个
+bge	八个
+jge	九个
+vge	十个
+lg	两个
+dfii	第一
+dria	第二
+dheu	第三
+dsia	第四
+dgue	第五
+dlou	第六
+dqii	第七
+dbai	第八
+djou	第九
+dvie	第十
+fkoa	一月
+rkoa	二月
+hkoa	三月
+skoa	四月
+gkoa	五月
+lkoa	六月
+qkoa	七月
+bkoa	八月
+jkoa	九月
+vkoa	十月
+vfk	十一月
+vrk	十二月
+vfii	十一
+vria	十二
+vheu	十三
+vsia	十四
+vgue	十五
+vlou	十六
+vqii	十七
+vbai	十八
+vjou	十九
+rvie	二十
+hvie	三十
+svie	四十
+gvie	五十
+lvie	六十
+qvie	七十
+bvie	八十
+jvie	九十
+fbai	一百
+rbai	二百
+lbai	两百
+hbai	三百
+sbai	四百
+gbai	五百
+lbai	六百
+qbai	七百
+bbai	八百
+jbai	九百
+fquo	一千
+rquo	二千
+lquo	两千
+hquo	三千
+squo	四千
+gquo	五千
+lquo	六千
+qquo	七千
+bquo	八千
+jquo	九千
+fsio	一万
+rsio	二万
+lsio	两万
+hsio	三万
+ssio	四万
+gsio	五万
+lsio	六万
+qsio	七万
+bsio	八万
+jsio	九万
+vsio	十万
+ffia	一亿
+rfia	二亿
+lfia	两亿
+hfia	三亿
+sfia	四亿
+gfia	五亿
+lfia	六亿
+qfia	七亿
+bfia	八亿
+jfia	九亿
+vfia	十亿
+	
+rvf	二十一
+rvr	二十二
+rvh	二十三
+rvs	二十四
+rvg	二十五
+rvl	二十六
+rvq	二十七
+rvb	二十八
+rvj	二十九
+hvf	三十一
+hvr	三十二
+hvh	三十三
+hvs	三十四
+hvg	三十五
+hvl	三十六
+hvq	三十七
+hvb	三十八
+hvj	三十九
+svf	四十一
+svr	四十二
+svh	四十三
+svs	四十四
+svg	四十五
+svl	四十六
+svq	四十七
+svb	四十八
+svj	四十九
+gvf	五十一
+gvr	五十二
+gvh	五十三
+gvs	五十四
+gvg	五十五
+gvl	五十六
+gvq	五十七
+gvb	五十八
+gvj	五十九
+lvf	六十一
+lvr	六十二
+lvh	六十三
+lvs	六十四
+lvg	六十五
+lvl	六十六
+lvq	六十七
+lvb	六十八
+lvj	六十九
+qvf	七十一
+qvr	七十二
+qvh	七十三
+qvs	七十四
+qvg	七十五
+qvl	七十六
+qvq	七十七
+qvb	七十八
+qvj	七十九
+bvf	八十一
+bvr	八十二
+bvh	八十三
+bvs	八十四
+bvg	八十五
+bvl	八十六
+bvq	八十七
+bvb	八十八
+bvj	八十九
+jvf	九十一
+jvr	九十二
+jvh	九十三
+jvs	九十四
+jvg	九十五
+jvl	九十六
+jvq	九十七
+jvb	九十八
+jvj	九十九

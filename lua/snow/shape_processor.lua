@@ -17,6 +17,7 @@ local processor = {}
 function processor.init(env)
   local function clear()
     env.engine.context:set_property("shape_input", "")
+    env.engine.context:set_property("shape_status", "")
     update(env)
   end
   local context = env.engine.context
@@ -28,20 +29,24 @@ end
 ---@param env AssistEnv
 function processor.func(key, env)
   local input = lib.current(env.engine.context)
-  if not input then
-    return lib.process_results.kNoop
-  end
-  if not lib.match(input, "[bpmfdtnlgkhjqxzcsrwyv][aeiou]{3,}") then
+  if not input or input:len() == 0 then
     env.engine.context:set_property("shape_input", "")
     return lib.process_results.kNoop
   end
+  -- 追加编码
   local context = env.engine.context
-  local shape_input = context:get_property("shape_input") or ""
+  local shape_input = context:get_property("shape_input")
   local keyName = key:repr()
-  if keyName == "BackSpace" and shape_input ~= "" then
+  if keyName == "1" and lib.match(input, "[bpmfdtnlgkhjqxzcsrywv][aeiou]{0,3}") then
+    shape_input = "1"
+    goto update
+  elseif keyName == "BackSpace" and shape_input ~= "" then
     shape_input = shape_input:sub(1, -2)
     goto update
-  elseif lib.match(keyName, "[aeiou]") then
+  elseif shape_input == "1" and lib.match(keyName, "[a-z]") then
+    shape_input = shape_input .. keyName
+    goto update
+  elseif (lib.match(input, "[bpmfdtnlgkhjqxzcsrywv][aeiou]{3}") or shape_input:len() > 0) and lib.match(keyName, "[aeiou]") then
     shape_input = shape_input .. keyName
     goto update
   else

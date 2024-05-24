@@ -10,16 +10,15 @@ local number_to_letter = {
 
 ---@class AssistEnv: Env
 ---@field strokes table<string, string>
+---@field radicals table<string, string>
+---@field radical_sipin table<string, string>
 
-local filter = {}
-
----@param env AssistEnv
-function filter.init(env)
-  env.strokes = {}
-  local path = lib.api.get_user_data_dir() .. "/lua/snow/strokes.txt"
+local function table_from_tsv(path)
+  ---@type table<string, string>
+  local result = {}
   local file = io.open(path, "r")
   if not file then
-    return
+    return result
   end
   for line in file:lines() do
     ---@type string, string
@@ -27,24 +26,47 @@ function filter.init(env)
     if not content or not character then
       goto continue
     end
-    env.strokes[character] = content:gsub("%d", number_to_letter)
+    result[character] = content:gsub("%d", number_to_letter)
     ::continue::
   end
   file:close()
+  return result
+end
+
+local filter = {}
+
+---@param env AssistEnv
+function filter.init(env)
+  local dir = lib.api.get_user_data_dir() .. "/lua/snow/"
+  env.strokes = table_from_tsv(dir .. "strokes.txt")
+  env.radicals = table_from_tsv(dir .. "radicals.txt")
+  env.radical_sipin = table_from_tsv(dir .. "radical_sipin.txt")
 end
 
 ---@param translation Translation
 ---@param env AssistEnv
 function filter.func(translation, env)
   local context = env.engine.context
-  local input = context:get_property("shape_input") or ""
+  local shape_input = context:get_property("shape_input")
   for candidate in translation:iter() do
-    local code = env.strokes[candidate.text]
-    if not code or code:sub(1, #input) == input then
-      candidate.comment = code
-      if #input > 0 then
-        candidate.preedit = candidate.preedit .. " [" .. input .. "]"
+    local code = ""
+    local prompt = ""
+    local partial_code = ""
+    if shape_input:len() > 0 and shape_input:sub(1, 1) == "1" then
+      partial_code = shape_input:sub(2)
+      code = env.radicals[candidate.text] or ""
+      if code:len() > 0 then
+        code = env.radical_sipin[code] .. " " .. code
       end
+      prompt = " 部首 [" .. partial_code .. "]"
+    else
+      partial_code = shape_input
+      code = env.strokes[candidate.text] or ""
+      prompt = #shape_input > 0 and (" 笔画 [" .. shape_input .. "]") or ""
+    end
+    if not code or code:sub(1, #partial_code) == partial_code then
+      candidate.comment = code
+      candidate.preedit = candidate.preedit .. prompt
       lib.yield(candidate)
     end
   end
@@ -54,7 +76,11 @@ end
 ---@param env AssistEnv
 function filter.tags_match(segment, env)
   local current = lib.current(env.engine.context)
-  return current and lib.match(current, "[bpmfdtnlgkhjqxzcsrwyv][aeiou]{3,}")
+  if not current then return false end
+  if lib.match(current, "[bpmfdtnlgkhjqxzcsrwyv][aeiou]{3}") then return true end
+  local shape_input = env.engine.context:get_property("shape_input")
+  if shape_input:len() > 0 then return true end
+  return false
 end
 
 return filter
