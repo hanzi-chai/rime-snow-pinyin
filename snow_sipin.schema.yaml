@@ -74,7 +74,7 @@ sipin_algebra:
   - derive/wu3/gu2/ # 五
   - derive/ri4/ri1/ # 日
   # 还原
-  - xform/((^| )h?)([mn]g?\d)/$1e$2/
+  - xform/(^| )(h?)([mn]g?\d)/$1$2e$3/
   - xform/(^| )wu?/$1u/
   - xform/(^| )yu/$1ü/
   - xform/(^| )yi?/$1i/
