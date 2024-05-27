@@ -31,13 +31,14 @@ switches:
 engine:
   processors:
     - ascii_composer
-    - lua_processor@*snow.shape_processor
-    - lua_processor@*snow.select_character
+    - lua_processor@*snow.abbreviation
     - recognizer
+    - lua_processor@*snow.shape_processor
     - key_binder
     - lua_processor@*snow.editor
     - lua_processor@*snow.popping
     - speller
+    - lua_processor@*snow.select_character
     - punctuator
     - selector
     - navigator
@@ -174,6 +175,8 @@ stroke:
   tips: 〔笔画〕
   preedit_format:
     - xlit/eiuoa/一丨丿丶乙/
+  comment_format:
+    - xlit/hspnz/eiuoa/
 
 pinyin:
   tag: pinyin

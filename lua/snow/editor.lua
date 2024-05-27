@@ -57,11 +57,13 @@ function this.func(key_event, env)
   context.caret_pos = confirmed_position + first_char_code_len
   if incoming == "BackSpace" then
     context:pop_input(1)
+    first_char_code_len = first_char_code_len - 1
   else
     context:push_input(incoming)
+    first_char_code_len = first_char_code_len + 1
   end
-  -- 如果补码后不到 5 码，则返回当前的位置，使得补码后的输入可以继续匹配词语；
-  -- 如果补码后已有 5 码，则不返回，相当于进入单字模式
+  -- 如果补码后不到 4 码，则返回当前的位置，使得补码后的输入可以继续匹配词语；
+  -- 如果补码后已有 4 码，则不返回，相当于进入单字模式
   if first_char_code_len < 4 then
     context.caret_pos = previous_caret_pos + 1
   end

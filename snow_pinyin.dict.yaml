@@ -10,6 +10,8 @@ name: snow_pinyin
 version: "0.1"
 sort: by_weight
 use_preset_vocabulary: false
+import_tables:
+  - snow_pinyin.unihan
 ...
 
 # 字母
