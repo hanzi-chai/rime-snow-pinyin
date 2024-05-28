@@ -502,6 +502,8 @@ function getIceFrequency() {
   return frequency;
 }
 
+const iceFrequency = getIceFrequency();
+
 function applyDiff(cdict: Map<string, string[]>) {
   const diff1: Record<string, string> = {};
   for (const [word, rawPinyinList] of cdict) {
@@ -549,7 +551,7 @@ function resolve(
   return [resolved, updatedList.join(" ")] as const;
 }
 
-function resolve2(
+function fixDictEntry(
   word: string,
   pinyin_list: string[],
   dict: Map<string, string[]>
@@ -591,7 +593,7 @@ function processCompleteDict() {
 
   for (const [word, value] of Object.entries(dict)) {
     const pinyin = diff.get(word) ?? value[0];
-    const [resolved, updated] = resolve2(word, pinyin.split(" "), cdict);
+    const [resolved, updated] = fixDictEntry(word, pinyin.split(" "), cdict);
     newDict[word] = [updated, value[1], value[2]];
     if (!resolved) {
       undetermined.push([word, updated]);
@@ -618,16 +620,39 @@ function getCharacterDict() {
   return dict;
 }
 
-function process(name: string, dict: Map<string, string[]>) {
+function readIceDictionary(name: string) {
   const input = readFileSync(`ice/cn_dicts/${name}.dict.yaml`, "utf-8");
-  const known_words = new Set();
-  const undetermined: string[][] = [];
-  const determined: string[][] = [];
+  const data: [string, string, string][] = [];
 
   for (const line of input.split("\n")) {
     if (line.startsWith("#")) continue;
     if (!line.includes("\t")) continue;
-    const [word, simp_pinyin, frequency] = line.split("\t");
+    let [word, simp_pinyin, frequency] = line.split("\t");
+    if (frequency === undefined) { // 特殊处理 tencent
+      frequency = simp_pinyin;
+      const normal_word = word.replace(/[·（）：–]/g, "");
+      const simp_list = [...normal_word].map(c => {
+        const possible_list = iceFrequency.get(c);
+        if (possible_list === undefined) {
+          console.log(`Missing ${c}`);
+          return "";
+        }
+        return possible_list[0][0];
+      });
+      simp_pinyin = simp_list.join(" ");
+    }
+    data.push([word, simp_pinyin, frequency]);
+  }
+  return data;
+}
+
+function process(name: string, dict: Map<string, string[]>) {
+  const input = readIceDictionary(name);
+  const known_words = new Set();
+  const undetermined: string[][] = [];
+  const determined: string[][] = [];
+
+  for (const [word, simp_pinyin, frequency] of input) {
     const normal_word = word.replace(/[·（）：–]/g, "");
     if (![...normal_word].every((c) => dict.has(c))) continue;
     const simp_list = simp_pinyin.split(" ");
@@ -671,6 +696,7 @@ function main() {
   addDict(completeDict);
   process("base", dict);
   process("ext", dict);
+  process("tencent", dict);
 }
 
 processCompleteDict();
