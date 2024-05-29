@@ -1,5 +1,6 @@
 import { addDict, customPinyin, pinyin, convert } from "pinyin-pro";
-import { readFileSync, writeFileSync } from "fs";
+import CompleteDict from "@pinyin-pro/data/complete.json";
+import { mkdirSync, readFileSync, writeFileSync } from "fs";
 const diff2 = {
   这个: "zhè gè",
   部分: "bù fèn",
@@ -492,7 +493,7 @@ function getIceFrequency() {
     const [word, pinyin, freq] = line.split("\t");
     frequency.set(
       word,
-      (frequency.get(word) ?? []).concat([pinyin, parseInt(freq)])
+      (frequency.get(word) ?? []).concat([[pinyin, parseInt(freq)]])
     );
   }
   // sort the list in each entry
@@ -579,19 +580,16 @@ function fixDictEntry(
 function processCompleteDict() {
   const diff = new Map<string, string>();
   const cdict = getCharacterDict();
-  for (const line of readFileSync("diff/complete-diff.txt", "utf-8").split(
+  for (const line of readFileSync("snow/complete-diff.txt", "utf-8").split(
     "\n"
   )) {
     const [key, value] = line.split("\t");
     diff.set(key, value);
   }
-  const dict: Record<string, [string, number, string]> = JSON.parse(
-    readFileSync("diff/complete.json", "utf-8")
-  );
   const newDict: Record<string, [string, number, string]> = {};
   const undetermined: string[][] = [];
 
-  for (const [word, value] of Object.entries(dict)) {
+  for (const [word, value] of Object.entries(CompleteDict)) {
     const pinyin = diff.get(word) ?? value[0];
     const [resolved, updated] = fixDictEntry(word, pinyin.split(" "), cdict);
     newDict[word] = [updated, value[1], value[2]];
@@ -600,12 +598,11 @@ function processCompleteDict() {
     }
   }
 
-  writeFileSync("diff/complete-new.json", JSON.stringify(newDict));
   writeFileSync(
-    "diff/undetermined.txt",
+    "diff/complete.txt",
     undetermined.map(([key, value]) => `${key}\t${value}`).join("\n")
   );
-  return 0;
+  return newDict;
 }
 
 function getCharacterDict() {
@@ -682,21 +679,20 @@ function process(name: string, dict: Map<string, string[]>) {
   );
 
   writeFileSync(
-    `diff/${name}.diff.txt`,
+    `diff/${name}.txt`,
     undetermined.map((row) => row.join("\t")).join("\n")
   );
 }
 
 function main() {
+  mkdirSync("diff", { recursive: true });
   const dict = getCharacterDict();
   applyDiff(dict);
-  const completeDict = JSON.parse(
-    readFileSync("diff/complete-new.json", "utf-8")
-  );
+  const completeDict = processCompleteDict();
   addDict(completeDict);
   process("base", dict);
   process("ext", dict);
   process("tencent", dict);
 }
 
-processCompleteDict();
+main();

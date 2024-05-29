@@ -63,6 +63,8 @@ translator:
     - xform/([jqxy])v/$1u/
   packs:
     - snow_pinyin.base
+    - snow_pinyin.ext
+    - snow_pinyin.tencent
 
 reverse_lookup:
   dictionary: stroke

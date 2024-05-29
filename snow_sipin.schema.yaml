@@ -162,6 +162,7 @@ translator:
   packs:
     - snow_pinyin.base
     - snow_pinyin.ext
+    - snow_pinyin.tencent
 
 stroke:
   tag: stroke
