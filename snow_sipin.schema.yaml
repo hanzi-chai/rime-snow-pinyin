@@ -4,7 +4,7 @@
 schema:
   schema_id: snow_sipin
   name: 冰雪四拼
-  version: "0.1"
+  version: "1.0"
   author:
     - 谭淞宸 <i@tansongchen.com>
   description: |
@@ -31,14 +31,14 @@ switches:
 engine:
   processors:
     - ascii_composer
-    - lua_processor@*snow.abbreviation
     - recognizer
     - lua_processor@*snow.shape_processor
     - key_binder
+    - lua_processor@*snow.abbreviation
+    - lua_processor@*snow.select_character
     - lua_processor@*snow.editor
     - lua_processor@*snow.popping
     - speller
-    - lua_processor@*snow.select_character
     - punctuator
     - selector
     - navigator
@@ -83,6 +83,7 @@ sipin_algebra:
   - xform/iu/iou/
   - xform/u([in])/ue$1/
   - xform/ao/au/
+  - xlit/ê/e/
   # 声码
   - xform/zh/w/
   - xform/ch/y/

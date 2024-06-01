@@ -1,0 +1,14 @@
+# Rime dictionary
+# encoding: utf-8
+#
+# Snow Pinyin - 冰雪拼音
+# 《通用规范汉字表》内读音依据《通用规范汉字字典》，收录了 8105 个汉字，共 8773 音
+# 其他汉字的读音依据 https://github.com/mozillazg/pinyin-data/blob/master/pinyin.txt
+#
+
+---
+name: snow_pinyin
+version: "0.1"
+sort: by_weight
+use_preset_vocabulary: false
+...

@@ -973,7 +973,7 @@ pt	普通
 ks	快速
 hr	黑暗
 pr	平安
-cs	彩色
+cs	错误
 zx	最新
 gp	公平
 cr	从容

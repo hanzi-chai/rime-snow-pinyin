@@ -4,7 +4,7 @@
 schema:
   schema_id: snow_pinyin
   name: 冰雪拼音
-  version: '0.1'
+  version: '1.0'
   author:
     - 谭淞宸 <i@tansongchen.com>
   description: |
