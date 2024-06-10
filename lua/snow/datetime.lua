@@ -1,8 +1,6 @@
 -- 日期与时间翻译器
 -- 输入特定的日期时间缩写，输出对应的日期时间字符串
 
-local rime = require "snow.lib"
-
 local function translator(input, seg)
    ---@type (string | osdate)[]
    local datetimes = {}
@@ -18,7 +16,7 @@ local function translator(input, seg)
    end
    for _, entry in ipairs(datetimes) do
       ---@cast entry string
-      rime.yield(rime.Candidate("datetime", seg.start, seg._end, entry, ""))
+      yield(Candidate("datetime", seg.start, seg._end, entry, ""))
    end
 end
 

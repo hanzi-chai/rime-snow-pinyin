@@ -1,4 +1,4 @@
-local lib = require "snow.lib"
+local snow = require "snow.snow"
 
 local number_to_letter = {
   ["1"] = "e",
@@ -45,7 +45,7 @@ local filter = {}
 
 ---@param env AssistEnv
 function filter.init(env)
-  local dir = lib.api.get_user_data_dir() .. "/lua/snow/"
+  local dir = rime_api.get_user_data_dir() .. "/lua/snow/"
   env.strokes = table_from_tsv(dir .. "strokes.txt")
   env.radicals = table_from_tsv(dir .. "radicals.txt")
   env.radical_sipin = table_from_tsv(dir .. "radical_sipin.txt")
@@ -76,7 +76,7 @@ function filter.func(translation, env)
     if not code or code:sub(1, #partial_code) == partial_code then
       candidate.comment = code
       candidate.preedit = candidate.preedit .. prompt
-      lib.yield(candidate)
+      yield(candidate)
     end
   end
 end
@@ -84,9 +84,9 @@ end
 ---@param segment Segment
 ---@param env AssistEnv
 function filter.tags_match(segment, env)
-  local current = lib.current(env.engine.context)
+  local current = snow.current(env.engine.context)
   if not current then return false end
-  if lib.match(current, "[bpmfdtnlgkhjqxzcsrwyv][aeiou]{3}") then return true end
+  if rime_api.regex_match(current, "[bpmfdtnlgkhjqxzcsrwyv][aeiou]{3}") then return true end
   local shape_input = env.engine.context:get_property("shape_input")
   if shape_input:len() > 0 then return true end
   return false

@@ -1,14 +1,14 @@
 -- 后置过滤器
 -- 本过滤器记录码长较短时已出现在首选的字词，当码长较长时将这些字词后置，以便提高编码的利用效率
 
-local rime = require "snow.lib"
+local snow = require "snow.snow"
 
 local this = {}
 
----@class PostponeEnv: Env
+---@class SnowPostponeEnv: Env
 ---@field known_candidates table<string, number>
 
----@param env PostponeEnv
+---@param env SnowPostponeEnv
 function this.init(env)
   env.known_candidates = {}
 end
@@ -25,11 +25,11 @@ function this.tags_match(segment, env)
 end
 
 ---@param translation Translation
----@param env PostponeEnv
+---@param env SnowPostponeEnv
 function this.func(translation, env)
   local context = env.engine.context
   -- 取出输入中当前正在翻译的一部分
-  local input = rime.current(context)
+  local input = snow.current(context)
   if not input then
     return
   end
@@ -72,14 +72,14 @@ function this.func(translation, env)
         return env.known_candidates[a.text] > env.known_candidates[b.text]
       end)
       for _, c in ipairs(postponed_candidates) do
-        rime.yield(c)
+        yield(c)
       end
       postponed_candidates = {}
       for _, c in ipairs(temp_candidates) do
-        rime.yield(c)
+        yield(c)
       end
       temp_candidates = {}
-      rime.yield(candidate)
+      yield(candidate)
       goto continue
     end
     -- 如果这个候选词已经在首选中出现过，那么后置
@@ -92,9 +92,9 @@ function this.func(translation, env)
     if is_first then
       env.known_candidates[text] = input:len()
       is_first = false
-      rime.yield(candidate)
+      yield(candidate)
     elseif candidate.type == "fixed" then
-      rime.yield(candidate)
+      yield(candidate)
     else
       table.insert(temp_candidates, candidate)
     end
@@ -105,10 +105,10 @@ function this.func(translation, env)
     return env.known_candidates[a.text] > env.known_candidates[b.text]
   end)
   for _, c in ipairs(postponed_candidates) do
-    rime.yield(c)
+    yield(c)
   end
   for _, c in ipairs(temp_candidates) do
-    rime.yield(c)
+    yield(c)
   end
 end
 

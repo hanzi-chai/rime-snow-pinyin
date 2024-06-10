@@ -70,7 +70,7 @@ dau	打
 de	得
 dea	？
 dee	等
-dei	爹
+dei	跌
 deo	地
 deu	？
 di	地
@@ -100,12 +100,12 @@ fao	饭
 fau	法
 fe	也
 fea	夜
-fee	疯
-fei	飞
+fee	风
+fei	非
 feo	分
 feu	野
 fi	以
-fia	亿
+fia	易
 fie	应
 fii	一 1
 fio	因
@@ -199,7 +199,7 @@ jeo	J j
 jeu	姐
 ji	即
 jia	记
-jie	急
+jie	及
 jii	鸡
 jio	金
 jiu	几
@@ -210,7 +210,7 @@ joi	撅
 joo	卷
 jou	九 9
 ju	加
-jua	嫁
+jua	架
 jue	将
 jui	家
 juo	见
@@ -220,7 +220,7 @@ ka	与
 kaa	欲
 kae	于
 kai	开
-kao	晕
+kao	云
 kau	卡
 ke	可
 kea	课
@@ -232,7 +232,7 @@ ki	快
 kia	跨
 kie	狂
 kii	块
-kio	款
+kio	宽
 kiu	垮
 ko	越
 koa	月
@@ -290,7 +290,7 @@ mee	梦
 mei	妹
 meo	门
 meu	？
-mi	米
+mi	明
 mia	幂
 mie	名
 mii	咪
@@ -322,7 +322,7 @@ nei	内
 neo	呢
 neu	？
 ni	您
-nia	腻
+nia	逆
 nie	泥
 nii	妮
 nio	暖
@@ -346,7 +346,7 @@ pae	胖
 pai	排
 pao	盘
 pau	泡
-pe	喷
+pe	陪
 pea	P p
 pee	碰
 pei	配
@@ -411,7 +411,7 @@ rau	凹
 re	嗯
 rea	热
 ree	仍
-rei	欸
+rei	诶
 reo	任
 reu	惹
 ri	而
@@ -449,7 +449,7 @@ si	玩
 sia	四 4
 sie	往
 sii	外
-sio	万
+sio	算
 siu	死
 so	所
 soa	握
@@ -752,6 +752,7 @@ rq	而且
 rh	然后
 bq	并且
 rr	然而
+cr	从而
 dr	当然
 fc	因此
 rg	如果
@@ -976,7 +977,6 @@ pr	平安
 cs	错误
 zx	最新
 gp	公平
-cr	从容
 rn	热闹
 my	漫长
 zg	足够
@@ -1015,7 +1015,7 @@ bs	比赛
 fm	方面
 bb	版本
 qb	区别
-df	对方
+df	地方
 lp	老婆
 tz	帖子
 tq	天气

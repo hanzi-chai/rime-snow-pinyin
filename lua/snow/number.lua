@@ -1,8 +1,6 @@
 -- 数字翻译器
 -- 将 `o` + 阿拉伯数字 翻译为大小写汉字
 
-local rime = require "snow.lib"
-
 local datechars = {
    ["0"] = "零",
    ["1"] = "一",
@@ -53,7 +51,8 @@ local confs = {
 local function todatechars(datechars, input)
    local r = ""
    for c in string.gmatch(input, "%w") do
-       r = r .. datechars[c]
+      ---@type string
+      r = r .. datechars[c]
    end
    return r
 end
@@ -118,15 +117,15 @@ local function translator(input, seg)
       if tonumber(n) ~= nil then
          for _, conf in ipairs(confs) do
             local r = read_number(conf, n)
-            rime.yield(rime.Candidate("number", seg.start, seg._end, r, conf.comment))
+            yield(Candidate("number", seg.start, seg._end, r, conf.comment))
          end
-      elseif string.find(n,"[0-9]+%a") ~= nil then
+      elseif string.find(n, "[0-9]+%a") ~= nil then
          local d = todatechars(datechars, n)
          if d ~= nil then
-            rime.yield(rime.Candidate("number", seg.start, seg._end, d, ""))
+            yield(Candidate("number", seg.start, seg._end, d, ""))
             if string.find(d, "零") then
                local d2 = string.gsub(d, "零", "〇")
-               rime.yield(rime.Candidate("number", seg.start, seg._end, d2, ""))
+               yield(Candidate("number", seg.start, seg._end, d2, ""))
             end
          end
       end

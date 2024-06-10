@@ -1,6 +1,5 @@
+local snow = require "snow.snow"
 -- 略码处理器
-
-local rime = require "snow.lib"
 
 local this = {}
 
@@ -17,23 +16,29 @@ local lookup = {
   ["U"] = "呀",
 }
 
-function utf8.sub(s,i,j)
+---@param s string
+---@param i number
+---@param j number
+function utf8.sub(s, i, j)
   i = i or 1
   j = j or -1
-  if i<1 or j<1 then
-     local n = utf8.len(s)
-     if not n then return nil end
-     if i<0 then i = n+1+i end
-     if j<0 then j = n+1+j end
-     if i<0 then i = 1 elseif i>n then i = n end
-     if j<0 then j = 1 elseif j>n then j = n end
+  if i < 1 or j < 1 then
+    local n = utf8.len(s)
+    if not n then return "" end
+    if i < 0 then i = n + 1 + i end
+    if j < 0 then j = n + 1 + j end
+    if i < 0 then i = 1 elseif i > n then i = n end
+    if j < 0 then j = 1 elseif j > n then j = n end
   end
-  if j<i then return "" end
-  i = utf8.offset(s,i)
-  j = utf8.offset(s,j+1)
-  if i and j then return s:sub(i,j-1)
-     elseif i then return s:sub(i)
-     else return ""
+  if j < i then return "" end
+  i = utf8.offset(s, i)
+  j = utf8.offset(s, j + 1)
+  if i and j then
+    return s:sub(i, j - 1)
+  elseif i then
+    return s:sub(i)
+  else
+    return ""
   end
 end
 
@@ -43,14 +48,14 @@ function this.func(key_event, env)
   local context = env.engine.context
   local selection = context:get_selected_candidate()
   if not selection then
-    return rime.process_results.kNoop
+    return snow.kNoop
   end
   local length = utf8.len(selection.text)
   if length >= 4 then
-    return rime.process_results.kNoop
+    return snow.kNoop
   end
   if key_event:release() or key_event:alt() or key_event:ctrl() or key_event:caps() then
-    return rime.process_results.kNoop
+    return snow.kNoop
   end
   local incoming = utf8.char(key_event.keycode)
   if incoming == '[' and length == 1 then -- 重复一字词
@@ -89,9 +94,9 @@ function this.func(key_event, env)
     context:commit()
     env.engine:commit_text('来' .. selection.text .. '去')
   else
-    return rime.process_results.kNoop
+    return snow.kNoop
   end
-  return rime.process_results.kAccepted
+  return snow.kAccepted
 end
 
 return this

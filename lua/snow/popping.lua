@@ -2,31 +2,19 @@
 -- 本处理器能够支持所有的规则顶功模式
 -- 根据当前编码和新输入的按键来决定是否将当前编码或其一部分的首选顶上屏
 
-local rime = require "snow.lib"
+local snow = require "snow.snow"
 
 local this = {}
 
----@class PoppingEnv: Env
----@field speller Processor
----@field popping PoppingConfig[]
-
----@enum PoppingStrategy
 local strategies = {
   pop = "pop",
   append = "append",
   conditional = "conditional"
 }
 
----@class PoppingConfig
----@field when string | nil
----@field match string
----@field accept string
----@field prefix number | nil
----@field strategy PoppingStrategy | nil
-
 ---@param env PoppingEnv
 function this.init(env)
-  env.speller = rime.Processor(env.engine, "", "speller")
+  env.speller = Component.Processor(env.engine, "", "speller")
   env.engine.context.option_update_notifier:connect(function(ctx, name)
     if name == "is_buffered" then
       local is_buffered = ctx:get_option("is_buffered")
@@ -59,7 +47,7 @@ function this.init(env)
       strategy = value:get_value("strategy") and value:get_value("strategy"):get_string()
     }
     if popping.strategy ~= nil and strategies[popping.strategy] == nil then
-      rime.errorf("Invalid popping strategy: %s", popping.strategy)
+      snow.errorf("Invalid popping strategy: %s", popping.strategy)
       goto continue
     end
     table.insert(env.popping, popping)
@@ -73,20 +61,20 @@ function this.func(key_event, env)
   local context = env.engine.context
   local is_buffered = context:get_option("is_buffered")
   if key_event:release() or key_event:alt() or key_event:ctrl() or key_event:caps() then
-    return rime.process_results.kNoop
+    return snow.kNoop
   end
   -- 取出输入中当前正在翻译的一部分
-  local input = rime.current(context)
+  local input = snow.current(context)
   if not input then
-    return rime.process_results.kNoop
+    return snow.kNoop
   end
   -- Rime 有一个 bug，在按句号键之后的那个字词的编码的会有一个隐藏的 "."
   -- 这导致顶功判断失败，所以先屏蔽了。但是这个对用 "." 作为编码的方案会有影响
   if input == "." then
     context:pop_input(1)
-    input = rime.current(context)
+    input = snow.current(context)
     if not input then
-      return rime.process_results.kNoop
+      return snow.kNoop
     end
   end
   local incoming = utf8.char(key_event.keycode)
@@ -96,10 +84,10 @@ function this.func(key_event, env)
     if when and not context:get_option(when) then
       goto continue
     end
-    if not rime.match(input, rule.match) then
+    if not rime_api.regex_match(input, rule.match) then
       goto continue
     end
-    if not rime.match(incoming, rule.accept) then
+    if not rime_api.regex_match(incoming, rule.accept) then
       goto continue
     end
     -- 如果策略为追加编码，则不执行顶屏直接返回
@@ -136,7 +124,7 @@ function this.func(key_event, env)
   ::finish::
   -- 大写字母执行完顶屏功能之后转成小写
   if key_event.keycode >= 65 and key_event.keycode <= 90 then
-    key_event = rime.KeyEvent(utf8.char(key_event.keycode + 32))
+    key_event = KeyEvent(utf8.char(key_event.keycode + 32))
   end
   return env.speller:process_key_event(key_event)
 end

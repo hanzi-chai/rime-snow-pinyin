@@ -1,18 +1,18 @@
 -- 固顶过滤器
 -- 本过滤器读取用户自定义的固顶短语，将其与当前翻译结果进行匹配，如果匹配成功，则将特定字词固顶到特定位置
 
-local rime = require "snow.lib"
+local snow = require "snow.snow"
 
 local this = {}
 
----@class FixedFilterEnv: Env
+---@class SnowFixedFilterEnv: Env
 ---@field fixed { string : string[] }
 
----@param env FixedFilterEnv
+---@param env SnowFixedFilterEnv
 function this.init(env)
   ---@type { string : string[] }
   env.fixed = {}
-  local path = rime.api.get_user_data_dir() .. ("/%s.fixed.txt"):format(env.engine.schema.schema_id)
+  local path = rime_api.get_user_data_dir() .. ("/%s.fixed.txt"):format(env.engine.schema.schema_id)
   local file = io.open(path, "r")
   if not file then
     return
@@ -40,19 +40,19 @@ function this.tags_match(segment, env)
 end
 
 ---@param translation Translation
----@param env FixedFilterEnv
+---@param env SnowFixedFilterEnv
 function this.func(translation, env)
   local context = env.engine.context
   -- 取出输入中当前正在翻译的一部分
   local segment = context.composition:toSegmentation():back()
-  local input = rime.current(context)
+  local input = snow.current(context)
   if not segment or not input then
-    return rime.process_results.kNoop
+    return snow.kNoop
   end
   local fixed_phrases = env.fixed[input]
   if not fixed_phrases then
     for candidate in translation:iter() do
-      rime.yield(candidate)
+      yield(candidate)
     end
     return
   end
@@ -81,21 +81,21 @@ function this.func(translation, env)
     if current and known_candidates[current] then
       local cand = known_candidates[current]
       cand.type = "fixed"
-      rime.yield(cand)
+      yield(cand)
       i = i + 1
     end
   end
   -- 输出设为固顶但是没在候选中找到的候选
   -- 因为不知道全码是什么，所以只能做一个 SimpleCandidate
   while fixed_phrases[i] do
-    local candidate = rime.Candidate("fixed", segment.start, segment._end, fixed_phrases[i], "")
+    local candidate = Candidate("fixed", segment.start, segment._end, fixed_phrases[i], "")
     candidate.preedit = input
     i = i + 1
-    rime.yield(candidate)
+    yield(candidate)
   end
   -- 输出没有固顶的候选
   for _, candidate in ipairs(unknown_candidates) do
-    rime.yield(candidate)
+    yield(candidate)
   end
 end
 

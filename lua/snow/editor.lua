@@ -1,6 +1,6 @@
 -- 回头补码处理器
 
-local rime = require "snow.lib"
+local snow = require "snow.snow"
 
 local this = {}
 
@@ -14,27 +14,27 @@ function this.func(key_event, env)
   local context = env.engine.context
   -- 只对无修饰按键生效
   if key_event.modifier > 0 then
-    return rime.process_results.kNoop
+    return snow.kNoop
   end
   local incoming = key_event:repr()
   -- 如果输入为空格或数字，代表着作文即将上屏，此时把 kConfirmed 的片段改为 kSelected
   -- 这解决了 https://github.com/rime/home/issues/276 中的不造词问题
-  if rime.match(incoming, "\\d") or incoming == "space" then
+  if rime_api.regex_match(incoming, "\\d") or incoming == "space" then
     for _, segment in ipairs(context.composition:toSegmentation():get_segments()) do
-      if segment.status == rime.segment_types.kConfirmed then
-        segment.status = rime.segment_types.kSelected
+      if segment.status == snow.kConfirmed then
+        segment.status = snow.kSelected
       end
     end
   end
   -- 只在顶功模式下生效
   if not context:get_option("popping") then
-    return rime.process_results.kNoop
+    return snow.kNoop
   end
   -- 只对 aeiou 和 Backspace 键生效
   -- 如果输入是 aeiou，则添加一个码
   -- 如果输入是 Backspace，则从之前增加的补码中删除一个码
-  if not (rime.match(incoming, "[aeiou]") or incoming == "BackSpace") then
-    return rime.process_results.kNoop
+  if not (rime_api.regex_match(incoming, "[aeiou]") or incoming == "BackSpace") then
+    return snow.kNoop
   end
   -- 判断是否满足补码条件：末音节有 3 码，且前面至少还有一个音节
   -- confirmed_position 是拼音整句中已经被确认的编码的长度，只有后面的部分是可编辑的
@@ -43,13 +43,13 @@ function this.func(key_event, env)
   local confirmed_position = context.composition:toSegmentation():get_confirmed_position()
   local previous_caret_pos = context.caret_pos
   local current_input = context.input:sub(confirmed_position + 1, previous_caret_pos)
-  if not rime.match(current_input, ".+[bpmfdtnlgkhjqxzcsrywv][aeiou]{2}") then
-    return rime.process_results.kNoop
+  if not rime_api.regex_match(current_input, ".+[bpmfdtnlgkhjqxzcsrywv][aeiou]{2}") then
+    return snow.kNoop
   end
   -- 如果输入是 Backspace，还要验证是否有补码
   if incoming == "BackSpace" then
-    if not rime.match(current_input, "[bpmfdtnlgkhjqxzcsrywv][aeiou]+.+") then
-      return rime.process_results.kNoop
+    if not rime_api.regex_match(current_input, "[bpmfdtnlgkhjqxzcsrywv][aeiou]+.+") then
+      return snow.kNoop
     end
   end
   -- 找出补码的位置（第二个音节之前），并添加补码
@@ -67,7 +67,7 @@ function this.func(key_event, env)
   if first_char_code_len < 4 then
     context.caret_pos = previous_caret_pos + 1
   end
-  return rime.process_results.kAccepted
+  return snow.kAccepted
 end
 
 return this

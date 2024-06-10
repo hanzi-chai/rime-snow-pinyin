@@ -1,7 +1,7 @@
 -- 以词定字
 -- https://github.com/BlindingDark/rime-lua-select-character
 
-local lib = require "snow.lib"
+local snow = require "snow.snow"
 
 local select = {}
 
@@ -23,7 +23,7 @@ function select.func(key, env)
   local context = env.engine.context
 
   if key.modifier > 0 or (not context:has_menu()) then
-    return lib.process_results.kNoop
+    return snow.kNoop
   end
   local text = ""
   if context:get_selected_candidate() then
@@ -33,14 +33,14 @@ function select.func(key, env)
     if key:repr() == env.first_key then
       engine:commit_text(text:sub(1, utf8.offset(text, 2) - 1))
       context:clear()
-      return lib.process_results.kAccepted
+      return snow.kAccepted
     elseif key:repr() == env.last_key then
       engine:commit_text(text:sub(utf8.offset(text, -1)))
       context:clear()
-      return lib.process_results.kAccepted
+      return snow.kAccepted
     end
   end
-  return lib.process_results.kNoop
+  return snow.kNoop
 end
 
 return select
