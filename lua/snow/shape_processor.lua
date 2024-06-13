@@ -1,4 +1,3 @@
-local lib = require "sbxlm.lib"
 local snow = require "snow.snow"
 
 ---@param env Env
