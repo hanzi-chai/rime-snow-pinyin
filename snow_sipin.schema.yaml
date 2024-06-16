@@ -68,6 +68,7 @@ engine:
     - simplifier
     - uniquifier
     - lua_filter@*snow.shape_filter
+    - lua_filter@*snow.special
 
 sipin_algebra:
   # 无理音节

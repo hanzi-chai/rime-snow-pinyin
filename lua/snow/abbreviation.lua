@@ -16,32 +16,6 @@ local lookup = {
   ["U"] = "呀",
 }
 
----@param s string
----@param i number
----@param j number
-function utf8.sub(s, i, j)
-  i = i or 1
-  j = j or -1
-  if i < 1 or j < 1 then
-    local n = utf8.len(s)
-    if not n then return "" end
-    if i < 0 then i = n + 1 + i end
-    if j < 0 then j = n + 1 + j end
-    if i < 0 then i = 1 elseif i > n then i = n end
-    if j < 0 then j = 1 elseif j > n then j = n end
-  end
-  if j < i then return "" end
-  i = utf8.offset(s, i)
-  j = utf8.offset(s, j + 1)
-  if i and j then
-    return s:sub(i, j - 1)
-  elseif i then
-    return s:sub(i)
-  else
-    return ""
-  end
-end
-
 ---@param key_event KeyEvent
 ---@param env PoppingEnv
 function this.func(key_event, env)
@@ -69,22 +43,22 @@ function this.func(key_event, env)
     env.engine:commit_text(selection.text)
   elseif incoming == 'E' or incoming == 'I' then -- 重复词的首字或末字
     if incoming == 'E' then
-      env.engine:commit_text(utf8.sub(selection.text, 1, 1))
+      env.engine:commit_text(snow.sub(selection.text, 1, 1))
     end
     context:confirm_current_selection()
     context:commit()
     if incoming == 'I' then
-      env.engine:commit_text(utf8.sub(selection.text, -1, -1))
+      env.engine:commit_text(snow.sub(selection.text, -1, -1))
     end
   elseif incoming == 'A' then -- 重复多字词
     context:confirm_current_selection()
     context:commit()
     env.engine:commit_text(selection.text)
   elseif incoming == 'O' and length == 2 then -- 叠词重复二字词
-    env.engine:commit_text(utf8.sub(selection.text, 1, 1))
+    env.engine:commit_text(snow.sub(selection.text, 1, 1))
     context:confirm_current_selection()
     context:commit()
-    env.engine:commit_text(utf8.sub(selection.text, -1, -1))
+    env.engine:commit_text(snow.sub(selection.text, -1, -1))
   elseif incoming == 'W' then -- Ａ着Ａ着
     context:confirm_current_selection()
     context:commit()
