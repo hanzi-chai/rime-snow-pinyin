@@ -140,11 +140,6 @@ speller:
     __append:
       # 补码
       - derive/^([a-z]{3})$/$1o/
-      # 简拼及无声调的全拼
-      - abbrev/^([a-z]).+$/$1/
-      - derive/[aeiou]$//
-      # 字词模式下的简码；整句模式下应注释掉以提升准确度
-      - derive/^([a-z]{2}).+$/$1/
       # 字母
       - xform/~{1,2}a/woa/
       - xform/~{1,2}e/voe/
@@ -153,10 +148,15 @@ speller:
       - xform/~{1,2}u/seu/
       - xform/~{1,2}([bp])/$1ea/
       - xform/~{1,2}f/foa/
-      - xform/~{1,2}k/kuee/
+      - xform/~{1,2}k/kue/
       - xform/~{1,2}h/hiu/
       - xform/~{1,2}([jqx])/$1eo/
       - xform/~{1,2}([mgdtnlzcsrywv])/$1oo/
+      # 简拼及无声调的全拼
+      - abbrev/^([a-z]).+$/$1/
+      - derive/[aeiou]$//
+      # 字词模式下的简码；整句模式下应注释掉以提升准确度
+      - derive/^([a-z]{2}).+$/$1/
 
 translator:
   dictionary: snow_pinyin
@@ -217,8 +217,8 @@ punctuator:
   import_preset: snow_pinyin.symbols
   half_shape:
     ";": 的
+    "|": ；
     "/": 了
-    "i": ；
     "\\": 、
 
 key_binder:

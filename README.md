@@ -18,4 +18,4 @@
 
 ## 四拼方案
 
-冰雪四拼（`snow_sipin`）是基于冰雪拼音词库的词顶功输入方案，具体说明参见[冰雪四拼介绍](https://sbxlm.github.io/posts/冰雪四拼.html)。
+冰雪四拼（`snow_sipin`）是基于冰雪拼音词库的词顶功输入方案，具体说明参见[冰雪四拼介绍](https://sbxlm.github.io/sbsp/)。

@@ -49,6 +49,9 @@ for (const line of extendedPinyin) {
   }
 }
 
+const knownPinyin = new Map<string, string[]>();
+let extraCount = 0;
+
 const content = readFileSync("snow/dict.yaml", "utf-8").split("\n");
 content.push("# 字母");
 content.push(
@@ -74,8 +77,20 @@ for (const line of tygfPinyin) {
     frequency = "2";
   }
   content.push(`${char}\t${pinyin}\t${frequency}`);
+  knownPinyin.set(char, (knownPinyin.get(char) || []).concat(pinyin));
 }
 content.push("");
 content.push("# 大字集");
-extended.forEach((x) => content.push(x.join("\t")));
+extended.forEach(([char, normalized, weight]) => {
+  if (knownPinyin.has(char)) {
+    if (knownPinyin.get(char)!.includes(normalized)) {
+      return;
+    }
+    extraCount++;
+    console.log(`Extra: ${char} ${normalized}`);
+  }
+  content.push(`${char}\t${normalized}\t${weight}`);
+});
 writeFileSync("snow_pinyin.dict.yaml", content.join("\n"));
+
+console.log(`Extra: ${extraCount}`);
