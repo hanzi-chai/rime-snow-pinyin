@@ -1,0 +1,250 @@
+# Rime schema
+# encoding: utf-8
+
+schema:
+  schema_id: snow_sanpin_flypy
+  name: 冰雪三拼小鹤
+  version: "1.0"
+  author:
+    - 谭淞宸 <i@tansongchen.com>
+  description: |
+    带调拼音词顶功输入方案
+    基于小鹤双拼改编，零声母在 J 键
+  dependencies:
+    - stroke
+    - snow_pinyin
+    - snow_stroke
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [中文, 西文]
+  - name: full_shape
+    states: [半角, 全角]
+  - name: traditionalization
+    states: [汉字, 漢字]
+  - name: ascii_punct
+    states: [。，, ．，]
+  - name: popping
+    states: [整句, 字词]
+    reset: 1
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    # - lua_processor@*snow.shape_processor
+    - key_binder
+    - lua_processor@*snow.abbreviation
+    - lua_processor@*snow.select_character
+    # - lua_processor@*snow.editor
+    - lua_processor@*snow.popping
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - affix_segmentor@stroke
+    - affix_segmentor@pinyin
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - lua_translator@*snow.table_like*t12
+    - lua_translator@*snow.table_like*t3
+    - lua_translator@*snow.table_like*t4
+    - table_translator@stroke
+    - script_translator@pinyin
+    - lua_translator@*snow.datetime
+    - lua_translator@*snow.number
+    - lua_translator@*snow.calculator
+    - history_translator
+  filters:
+    - reverse_lookup_filter@lookup_pinyin
+    - reverse_lookup_filter@lookup_sanpin
+    - lua_filter@*snow.fix
+    - lua_filter@*snow.postpone
+    - simplifier
+    - uniquifier
+    # - lua_filter@*snow.shape_filter
+
+sanpin_algebra:
+  - xform/(^| )([aoe]|[mn]g?\d)/$1J$2/
+  - xform/iu(?=\d)/Q/
+  - xform/ei(?=\d)/W/
+  - xform/uan(?=\d)/R/
+  - xform/[uv]e(?=\d)/T/
+  - xform/un(?=\d)/Y/
+  - xform/sh/U/
+  - xform/ch/I/
+  - xform/zh/V/
+  - xform/uo(?=\d)/O/
+  - xform/ie(?=\d)/P/
+  - xform/i?ong(?=\d)/S/
+  - xform/ing(?=\d)|uai(?=\d)/K/
+  - xform/ai(?=\d)/D/
+  - xform/en(?=\d)/F/
+  - xform/[iu]ang(?=\d)/L/
+  - xform/ang(?=\d)/H/
+  - xform/e?ng(?=\d)/G/
+  - xform/ian(?=\d)|m(?=\d)/M/
+  - xform/an(?=\d)/J/
+  - xform/ou(?=\d)/Z/
+  - xform/[iu]a(?=\d)/X/
+  - xform/iao(?=\d)/N/
+  - xform/ao(?=\d)/C/
+  - xform/ui(?=\d)|er(?=\d)/V/
+  - xform/in(?=\d)/B/
+  - xlit/QWRTYUIOPSDFGHJKLZXCVBNM/qwrtyuiopsdfghjklzxcvbnm/
+  # 声调
+  - xlit/12345/oa;eo/
+
+speller:
+  alphabet: bpmfdtnlgkhjqxzcsrwyviuaeo;
+  initials: bpmfdtnlgkhjqxzcsrwyviu
+  delimiter: " "
+  popping:
+    # 单字三码顶
+    - when: popping
+      match: "[bpmfdtnlgkhjqxzcsrywviu][a-z][aeo;]+"
+      accept: "[bpmfdtnlgkhjqxzcsrywviu]"
+    # 四字词和多字词
+    - when: popping
+      match: "[bpmfdtnlgkhjqxzcsrywviu][a-z]{3,}"
+      accept: "[bpmfdtnlgkhjqxzcsrywviu]"
+    # 大写参与编码
+    - when: popping
+      match: "[bpmfdtnlgkhjqxzcsrywviu][a-z]{3,}"
+      accept: "[BPMFDTNLGKHJQXZCSRYWVIU]"
+      strategy: append
+    # 顶标点
+    - match: ".*[^a-z0-9]"
+      accept: "[bpmfdtnlgkhjqxzcsrywv]"
+    # 标点大写顶
+    - match: ".*[a-z0-9;']"
+      accept: "[^a-z0-9;' ]"
+  algebra:
+    __include: /sanpin_algebra
+    __append:
+      - abbrev/^([a-z]).+$/$1/ # 简拼
+      - derive/[aeo;]$// # 无声调
+      - derive/.([aeo;])$/?$1/ # 无韵母
+
+translator:
+  dictionary: snow_pinyin
+  prism: snow_sanpin_flypy
+  packs:
+    - snow_pinyin.base
+    - snow_pinyin.ext
+    - snow_pinyin.tencent
+  disable_postpone_pattern: '^[bpmfdtnlgkhjqxzcsrywviu][a-z][bpmfdtnlgkhjqxzcsrywviu]$'
+
+stroke:
+  tag: stroke
+  dictionary: stroke
+  prism: snow_stroke
+  enable_user_dict: false
+  enable_sentence: false
+  enable_completion: true
+  prefix: ";"
+  suffix: "'"
+  tips: 〔笔画〕
+  preedit_format:
+    - xlit/eiuoa/一丨丿丶乙/
+  comment_format:
+    - xlit/hspnz/eiuoa/
+
+pinyin:
+  tag: pinyin
+  dictionary: snow_pinyin
+  packs:
+    - snow_pinyin.base
+    - snow_pinyin.ext
+  enable_user_dict: false
+  enable_sentence: false
+  prefix: "a"
+  suffix: "'"
+  tips: 〔拼音〕
+
+history:
+  tag: history
+  input: "e"
+  size: 5
+  initial_quality: -1
+
+lookup_pinyin:
+  tags: [stroke]
+  overwrite_comment: true
+  dictionary: snow_pinyin
+  comment_format:
+    - xform/([nl])v/$1ü/
+
+lookup_sanpin:
+  tags: [pinyin]
+  overwrite_comment: true
+  dictionary: snow_pinyin
+  comment_format:
+    __include: /sanpin_algebra
+
+punctuator:
+  import_preset: snow_pinyin.symbols
+
+key_binder:
+  select_first_character: bracketleft
+  select_last_character: bracketright
+  bindings:
+    # Emacs 编辑键
+    - { accept: "Control+p", send: Up, when: composing }
+    - { accept: "Control+n", send: Down, when: composing }
+    - { accept: "Control+b", send: Left, when: composing }
+    - { accept: "Control+f", send: Right, when: composing }
+    - { accept: "Control+a", send: Home, when: composing }
+    - { accept: "Control+e", send: End, when: composing }
+    - { accept: "Control+d", send: Delete, when: composing }
+    - { accept: "Control+k", send: "Shift+Delete", when: composing }
+    - { accept: "Control+h", send: BackSpace, when: composing }
+    - { accept: "Control+g", send: Escape, when: composing }
+    - { accept: "Control+bracketleft", send: Escape, when: composing }
+    - { accept: "Control+y", send: Page_Up, when: composing }
+    - { accept: "Alt+v", send: Page_Up, when: composing }
+    - { accept: "Control+v", send: Page_Down, when: composing }
+    # 翻页
+    - { when: has_menu, accept: Tab, send: Page_Down }
+    - { when: paging, accept: Shift+Tab, send: Page_Up }
+    # 定位
+    - { when: has_menu, accept: 1, send_sequence: "{Shift+Right}" }
+    - { when: has_menu, accept: 4, send_sequence: "{Shift+Right}{Shift+Right}" }
+    - { when: has_menu, accept: 5, send_sequence: "{Shift+Right}{Shift+Right}{Shift+Right}" }
+    - { when: has_menu, accept: 6, send_sequence: "{Shift+Right}{Shift+Right}{Shift+Right}{Shift+Right}" }
+    - { when: has_menu, accept: 7, send_sequence: "{End}" }
+    # 切换
+    - { accept: "Control+Shift+1", select: .next, when: always }
+    - { accept: "Control+Shift+2", toggle: ascii_mode, when: always }
+    - { accept: "Control+Shift+3", toggle: full_shape, when: always }
+    - { accept: "Control+Shift+4", toggle: traditionalization, when: always }
+    - { accept: "Control+Shift+5", toggle: ascii_punct, when: always }
+    - { accept: "Control+Shift+exclam", select: .next, when: always }
+    - { accept: "Control+Shift+at", toggle: ascii_mode, when: always }
+    - { accept: "Control+Shift+numbersign", toggle: full_shape, when: always }
+    - { accept: "Control+Shift+dollar", toggle: traditionalization, when: always }
+    - { accept: "Control+Shift+percent", toggle: ascii_punct, when: always }
+
+simplifier:
+  opencc_config: s2t.json
+  option_name: traditionalization
+
+recognizer:
+  patterns:
+    punct: '^e([0-9]0?|[A-Za-z]+)$'
+    pinyin: "^a[a-z]*'?$"
+    stroke: "^;[a-z]*'?$"
+    lua: "^o.*$"
+    history: "^e$"
+
+menu:
+  alternative_select_keys: "_23890"
+  page_size: 6

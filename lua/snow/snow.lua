@@ -70,4 +70,16 @@ function snow.sub(s, i, j)
   end
 end
 
+---@param candidate Candidate
+---@param proxy string
+function snow.prepare(candidate, proxy, normal)
+  local proxy_segment = proxy:sub(1, candidate._end - candidate._start);
+  candidate._end = candidate._start + proxy_segment:gsub("[ ?]", ""):len()
+  if not normal then
+    candidate.quality = candidate.quality + 1
+  end
+  -- candidate.comment = ("%s, %s, %d, %d"):format(proxy, proxy_segment, candidate._start, candidate._end)
+  return candidate
+end
+
 return snow

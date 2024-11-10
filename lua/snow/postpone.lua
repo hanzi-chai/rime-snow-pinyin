@@ -7,10 +7,12 @@ local this = {}
 
 ---@class SnowPostponeEnv: Env
 ---@field known_candidates table<string, number>
+---@field disable string
 
 ---@param env SnowPostponeEnv
 function this.init(env)
   env.known_candidates = {}
+  env.disable = env.engine.schema.config:get_string("translator/disable_postpone_pattern") or ""
 end
 
 ---@param segment Segment
@@ -90,7 +92,9 @@ function this.func(translation, env)
     -- 否则直接输出
     -- 记录首选
     if is_first then
-      env.known_candidates[text] = input:len()
+      if not rime_api.regex_match(input, env.disable) then
+        env.known_candidates[text] = input:len()
+      end
       is_first = false
       yield(candidate)
     elseif candidate.type == "fixed" then
